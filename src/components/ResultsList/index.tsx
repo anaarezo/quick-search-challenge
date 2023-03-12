@@ -18,6 +18,7 @@ import {
   Rating,
   EditInfo,
   Link,
+  EmptySearch,
 } from "./index.style";
 import Star from "../../assets/icons/star";
 
@@ -25,7 +26,7 @@ interface IResultsListProps {
   query: string;
 }
 
-const SEARCH_RESULTS_LIMIT = 8;
+const SEARCH_RESULTS_LIMIT = 5;
 
 const ResultsList = (props: IResultsListProps) => {
   const { query } = props;
@@ -131,7 +132,9 @@ const ResultsList = (props: IResultsListProps) => {
   const renderItemEmpty = () => {
     return (
       <Item>
-        <p>There's no result to this search.</p>
+        <EmptySearch>
+          <p>There's no result to this search.</p>
+        </EmptySearch>
       </Item>
     );
   };

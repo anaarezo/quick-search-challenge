@@ -64,3 +64,7 @@ export const Rating = styled.div`
 export const EditInfo = styled.div`
   font-size: 12px;
 `;
+
+export const EmptySearch = styled.div`
+  padding: 1.5em;
+`;
