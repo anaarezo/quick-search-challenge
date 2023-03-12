@@ -1,20 +1,22 @@
-import { useEffect, useRef, useState } from "react";
-
+import { useState } from "react";
 import ResultsList from "../ResultsList";
 import { Input } from "./index.style";
 
 const InputSearch = () => {
-  const [query, setquery] = useState("");
+  const [query, setQuery] = useState("");
   const [list, setList] = useState(false);
 
   const handleOnBlur = () => {
-    setList(false);
+    // setList(false); //TODO: onBlur mode active
   };
 
   const handleOnChange = (e: any) => {
-    setquery(e.target.value);
-    if (e.target.value.length > 1) {
+    const changeValue = e.target.value;
+    setQuery(changeValue);
+    if (changeValue.length) {
       setList(true);
+    } else {
+      setList(false);
     }
   };
 
@@ -26,10 +28,10 @@ const InputSearch = () => {
         maxLength={70}
         value={query}
         onChange={handleOnChange}
-        onBlur={handleOnBlur}
         onFocus={handleOnChange}
+        onBlur={handleOnBlur}
       />
-      {list && <ResultsList />}
+      {list && <ResultsList query={query} />}
     </form>
   );
 };
