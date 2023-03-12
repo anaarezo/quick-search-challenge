@@ -1,22 +1,45 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ResultsList from "../ResultsList";
 import { Input } from "./index.style";
 
-const InputSearch = () => {
+interface IInputSearchProps {
+  searchOnEveryKeyPress: boolean;
+}
+
+const InputSearch = (props: IInputSearchProps) => {
+  const { searchOnEveryKeyPress } = props;
+  const [inputValue, setInputValue] = useState("");
   const [query, setQuery] = useState("");
   const [list, setList] = useState(false);
+  const keyUpTimer: { current: NodeJS.Timeout | null } = useRef(null);
+  const blurDelay = 250;
+  const timerDelay = 100;
 
   const handleOnBlur = () => {
-    // setList(false); //TODO: onBlur mode active
+    setTimeout(() => {
+      setList(false);
+    }, blurDelay);
   };
 
-  const handleOnChange = (e: any) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const changeValue = e.target.value;
-    setQuery(changeValue);
+    setInputValue(changeValue);
     if (changeValue.length) {
       setList(true);
+    }
+  };
+  const handleOnKeyUp = () => {
+    if (searchOnEveryKeyPress) {
+      if (inputValue.length) {
+        setQuery(inputValue);
+      }
     } else {
-      setList(false);
+      clearTimeout(keyUpTimer.current as NodeJS.Timeout);
+      keyUpTimer.current = setTimeout(() => {
+        if (inputValue.length) {
+          setQuery(inputValue);
+        }
+      }, timerDelay);
     }
   };
 
@@ -26,10 +49,11 @@ const InputSearch = () => {
         className=""
         placeholder="Quick search..."
         maxLength={70}
-        value={query}
+        value={inputValue}
         onChange={handleOnChange}
         onFocus={handleOnChange}
         onBlur={handleOnBlur}
+        onKeyUp={handleOnKeyUp}
       />
       {list && <ResultsList query={query} />}
     </form>
