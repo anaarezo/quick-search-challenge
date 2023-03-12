@@ -4,7 +4,7 @@ import { HeaderContent } from "./index.style";
 const Header = () => {
   return (
     <HeaderContent>
-      <InputSearch />
+      <InputSearch searchOnEveryKeyPress={false} />
     </HeaderContent>
   );
 };

@@ -15,24 +15,29 @@ import {
   Authors,
   ReleaseYear,
   EditInfo,
+  Link,
 } from "./index.style";
 
 interface IResultsListProps {
   query: string;
 }
 
-const ResultsList = ({ query }: IResultsListProps) => {
+const ResultsList = (props: IResultsListProps) => {
+  const { query } = props;
+
   const { data: searchResultsData } = libraryApi.useSearchQuery({
     query: encodeURIComponent(query),
     limit: 3,
   });
+
   const { data: getBooksInfoData } = libraryApi.useGetBooksInfoQuery(
     searchResultsData?.docs.map((result) => result.cover_edition_key) || []
   );
+
   const renderItem = (index: number, resultItem?: IWork) => {
     return (
       <Item key={index}>
-        <a
+        <Link
           href={
             resultItem
               ? `https://www.amazon.co.uk/s?k=${encodeURIComponent(
@@ -61,8 +66,8 @@ const ResultsList = ({ query }: IResultsListProps) => {
             )}
           </BookCover>
           <BookDetails>
-            <Title className="">
-              {resultItem ? resultItem.title : <Skeleton />}
+            <Title>
+              {resultItem ? resultItem.title : <Skeleton count={1} />}
             </Title>
             {resultItem ? (
               resultItem.author_name ? (
@@ -70,16 +75,21 @@ const ResultsList = ({ query }: IResultsListProps) => {
               ) : null
             ) : (
               <Authors>
-                <Skeleton />
+                <Skeleton count={1} />
               </Authors>
             )}
 
-            <ReleaseYear>
-              {resultItem ? resultItem.first_publish_year : <Skeleton />}
-            </ReleaseYear>
-            <EditInfo>{"Editora" || <Skeleton />}</EditInfo>
+            {resultItem ? (
+              resultItem.first_publish_year ? (
+                <ReleaseYear>{resultItem.first_publish_year}</ReleaseYear>
+              ) : null
+            ) : (
+              <Skeleton count={1} />
+            )}
+
+            <EditInfo>{"Editora" || <Skeleton count={1} />}</EditInfo>
           </BookDetails>
-        </a>
+        </Link>
       </Item>
     );
   };

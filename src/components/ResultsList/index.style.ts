@@ -26,8 +26,12 @@ export const Content = styled.ul`
   margin: 0;
 `;
 
-export const Item = styled.li`
+export const Item = styled.li``;
+
+export const Link = styled.a`
   display: flex;
+  text-decoration: none;
+  color: #000000;
 `;
 
 export const BookCover = styled.div`
@@ -44,7 +48,8 @@ export const BookDetails = styled.div`
 `;
 
 export const Title = styled.span`
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: bold;
 `;
 
 export const Authors = styled.div`
