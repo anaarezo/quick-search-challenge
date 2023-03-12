@@ -6,23 +6,26 @@ interface IInputSearchProps {
   searchOnEveryKeyPress: boolean;
 }
 
+const BLUR_DELAY = 250;
+const TIMER_DELAY = 100;
+const LIMIT_CHARACTERS = 100;
+const PLACEHOLDER_SEARCH = "Quick search...";
+
 const InputSearch = (props: IInputSearchProps) => {
   const { searchOnEveryKeyPress } = props;
   const [inputValue, setInputValue] = useState("");
   const [query, setQuery] = useState("");
   const [list, setList] = useState(false);
   const keyUpTimer: { current: NodeJS.Timeout | null } = useRef(null);
-  const blurDelay = 250;
-  const timerDelay = 100;
 
   const handleOnBlur = () => {
     setTimeout(() => {
       setList(false);
-    }, blurDelay);
+    }, BLUR_DELAY);
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const changeValue = e.target.value;
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeValue = event.target.value;
     setInputValue(changeValue);
     if (changeValue.length) {
       setList(true);
@@ -39,16 +42,15 @@ const InputSearch = (props: IInputSearchProps) => {
         if (inputValue.length) {
           setQuery(inputValue);
         }
-      }, timerDelay);
+      }, TIMER_DELAY);
     }
   };
 
   return (
     <form>
       <Input
-        className=""
-        placeholder="Quick search..."
-        maxLength={70}
+        placeholder={PLACEHOLDER_SEARCH}
+        maxLength={LIMIT_CHARACTERS}
         value={inputValue}
         onChange={handleOnChange}
         onFocus={handleOnChange}

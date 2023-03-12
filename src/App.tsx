@@ -3,15 +3,23 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 import Home from "./pages/Home";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
-      <AppContent>
-        <Home />
-      </AppContent>
+      <SkeletonTheme
+        baseColor="#C4C4C4"
+        highlightColor="#d3d3d3"
+        borderRadius={0}
+      >
+        <AppContent>
+          <Home />
+        </AppContent>
+      </SkeletonTheme>
     </Provider>
   );
-}
+};
 
 export default App;

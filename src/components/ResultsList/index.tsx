@@ -4,6 +4,8 @@ import Book from "../../assets/icons/book";
 import libraryApi from "../../store/library/apiSlice";
 import { IWork } from "../../store/library/interface";
 
+import "react-loading-skeleton/dist/skeleton.css";
+
 import {
   List,
   Triangle,
@@ -13,21 +15,24 @@ import {
   Content,
   Item,
   Authors,
-  ReleaseYear,
+  Rating,
   EditInfo,
   Link,
 } from "./index.style";
+import Star from "../../assets/icons/star";
 
 interface IResultsListProps {
   query: string;
 }
+
+const SEARCH_RESULTS_LIMIT = 8;
 
 const ResultsList = (props: IResultsListProps) => {
   const { query } = props;
 
   const { data: searchResultsData } = libraryApi.useSearchQuery({
     query: encodeURIComponent(query),
-    limit: 3,
+    limit: SEARCH_RESULTS_LIMIT,
   });
 
   const { data: getBooksInfoData } = libraryApi.useGetBooksInfoQuery(
@@ -35,6 +40,30 @@ const ResultsList = (props: IResultsListProps) => {
   );
 
   const renderItem = (index: number, resultItem?: IWork) => {
+    const isBookDataLoaded = resultItem && getBooksInfoData;
+
+    const hasBookInfoToLoad =
+      isBookDataLoaded &&
+      ((resultItem.cover_edition_key &&
+        getBooksInfoData[resultItem.cover_edition_key]) ||
+        !resultItem.cover_edition_key);
+
+    const isCoverLoaded =
+      hasBookInfoToLoad &&
+      resultItem.cover_edition_key &&
+      getBooksInfoData[resultItem.cover_edition_key];
+
+    const hasAuthor =
+      resultItem && resultItem.author_name
+        ? resultItem.author_name.join(", ")
+        : "";
+
+    const hasPublicationYear =
+      resultItem && resultItem.first_publish_year
+        ? resultItem?.first_publish_year
+        : "";
+    const thumbnailRegex = /-S.(?:.(?!-S))+$/;
+
     return (
       <Item key={index}>
         <Link
@@ -48,46 +77,51 @@ const ResultsList = (props: IResultsListProps) => {
           target="_blank"
         >
           <BookCover>
-            {resultItem && getBooksInfoData ? (
-              getBooksInfoData[resultItem.cover_edition_key] ? (
+            {hasBookInfoToLoad ? (
+              isCoverLoaded ? (
                 <img
-                  src={
-                    getBooksInfoData[resultItem.cover_edition_key].thumbnail_url
-                  }
+                  src={getBooksInfoData[
+                    resultItem.cover_edition_key
+                  ].thumbnail_url.replace(thumbnailRegex, "-M.jpg")}
                   alt={resultItem.title}
-                  width={72}
+                  width={52}
                   height={72}
                 />
               ) : (
                 <Book />
               )
             ) : (
-              <Skeleton height={30} />
+              <Skeleton height={72} />
             )}
           </BookCover>
+
           <BookDetails>
-            <Title>
-              {resultItem ? resultItem.title : <Skeleton count={1} />}
-            </Title>
             {resultItem ? (
-              resultItem.author_name ? (
-                <Authors> {resultItem.author_name.join(", ")} </Authors>
-              ) : null
-            ) : (
-              <Authors>
-                <Skeleton count={1} />
-              </Authors>
-            )}
+              <>
+                <Title>{resultItem.title}</Title>
+                {resultItem.author_name || resultItem.first_publish_year ? (
+                  <Authors>{`${hasAuthor} ${hasPublicationYear}`}</Authors>
+                ) : null}
+                {resultItem.number_of_pages_median ? (
+                  <EditInfo>
+                    {`Pages: ${resultItem.number_of_pages_median}`}
+                  </EditInfo>
+                ) : null}
 
-            {resultItem ? (
-              resultItem.first_publish_year ? (
-                <ReleaseYear>{resultItem.first_publish_year}</ReleaseYear>
-              ) : null
+                {resultItem.ratings_average ? (
+                  <Rating>
+                    <Star />
+                    {`${resultItem.ratings_average.toFixed(1)}`}
+                  </Rating>
+                ) : null}
+              </>
             ) : (
-              <Skeleton count={1} />
+              <>
+                <Skeleton count={1} height={18} />
+                <Skeleton count={2} height={9} width={163} />
+                <Skeleton count={1} height={9} width={100} />
+              </>
             )}
-
-            <EditInfo>{"Editora" || <Skeleton count={1} />}</EditInfo>
           </BookDetails>
         </Link>
       </Item>
