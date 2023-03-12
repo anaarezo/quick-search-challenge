@@ -1,15 +1,15 @@
 const Book = () => {
   return (
     <svg
-      height="62px"
-      width="62px"
+      height="72px"
+      width="52px"
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
-      style={{ marginTop: "5px" }}
+      style={{ marginTop: "0px", marginLeft: "-6px" }}
     >
-      <g transform="translate(1 1 )">
+      <g transform="scale(1.11)">
         <polygon
           style={{ fill: "#CCCCCC" }}
           points="67.267,502.467 442.733,502.467 442.733,7.533 67.267,7.533 	"

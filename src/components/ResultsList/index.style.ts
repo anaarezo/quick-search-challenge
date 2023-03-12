@@ -38,13 +38,13 @@ export const BookCover = styled.div`
   margin: 10px;
   width: 72px;
   height: 72px;
-  background: #ffffff;
 `;
 
 export const BookDetails = styled.div`
   flex-direction: row;
   text-align: left;
   padding: 10px;
+  width: 100%;
 `;
 
 export const Title = styled.span`
@@ -57,7 +57,7 @@ export const Authors = styled.div`
   font-size: 12px;
 `;
 
-export const ReleaseYear = styled.div`
+export const Rating = styled.div`
   font-size: 12px;
 `;
 
