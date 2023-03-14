@@ -77,7 +77,7 @@ npm test
 - Could make an accessible layout focused on WCAG if it was the project.
 - Isolate environment variables, such as API URL using env.
 - Isolate the rendering of the `<li>` component from the list into a new render component. Making the render component smaller, easier to test and maintain.
-- Avoiding nested ternaries, because is not a good practice to maintenance.
+- Avoid nested ternaries, because is not a good practice and it makes the code harder to maintain.
 
 ## Author
 
