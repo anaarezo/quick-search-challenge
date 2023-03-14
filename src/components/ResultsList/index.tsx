@@ -18,6 +18,7 @@ import {
   Rating,
   EditInfo,
   Link,
+  EmptySearch,
 } from "./index.style";
 import Star from "../../assets/icons/star";
 
@@ -25,7 +26,7 @@ interface IResultsListProps {
   query: string;
 }
 
-const SEARCH_RESULTS_LIMIT = 8;
+const SEARCH_RESULTS_LIMIT = 5;
 
 const ResultsList = (props: IResultsListProps) => {
   const { query } = props;
@@ -86,12 +87,17 @@ const ResultsList = (props: IResultsListProps) => {
                   alt={resultItem.title}
                   width={52}
                   height={72}
+                  data-testid="bookCover"
                 />
               ) : (
-                <Book />
+                <div
+                  data-testid="bookWithoutCover"
+                >
+                  <Book />
+                </div>
               )
             ) : (
-              <Skeleton height={72} />
+              <Skeleton height={72} containerTestId="SkeletonBookCover" />
             )}
           </BookCover>
 
@@ -117,9 +123,29 @@ const ResultsList = (props: IResultsListProps) => {
               </>
             ) : (
               <>
-                <Skeleton count={1} height={18} />
-                <Skeleton count={2} height={9} width={163} />
-                <Skeleton count={1} height={9} width={100} />
+                <Skeleton
+                  count={1}
+                  height={18}
+                  containerTestId="SkeletonTitle"
+                />
+                <Skeleton
+                  count={2}
+                  height={9}
+                  width={163}
+                  containerTestId="SkeletonAuthorYear"
+                />
+                <Skeleton
+                  count={1}
+                  height={9}
+                  width={100}
+                  containerTestId="SkeletonPages"
+                />
+                <Skeleton
+                  count={1}
+                  height={9}
+                  width={100}
+                  containerTestId="SkeletonRatings"
+                />
               </>
             )}
           </BookDetails>
@@ -131,7 +157,9 @@ const ResultsList = (props: IResultsListProps) => {
   const renderItemEmpty = () => {
     return (
       <Item>
-        <p>There's no result to this search.</p>
+        <EmptySearch>
+          <p>There's no result to this search.</p>
+        </EmptySearch>
       </Item>
     );
   };

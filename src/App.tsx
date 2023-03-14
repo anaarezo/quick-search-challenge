@@ -1,10 +1,12 @@
 import { AppContent } from "./app.style";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { setupStore } from "./store";
 
 import Home from "./pages/Home";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
+const store = setupStore()
 
 const App = () => {
   return (
