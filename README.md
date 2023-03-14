@@ -34,6 +34,7 @@ Evaluate general front end development skills and capabilities.
 - [Redux](https://redux.js.org/)
 - [React Loading Skeleton](https://github.com/dvtng/react-loading-skeleton)
 - [TypeScript](https://www.typescriptlang.org/)
+- [MSW](https://mswjs.io/)
 
 ## Installation
 
