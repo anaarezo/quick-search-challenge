@@ -56,6 +56,7 @@ const InputSearch = (props: IInputSearchProps) => {
         onFocus={handleOnChange}
         onBlur={handleOnBlur}
         onKeyUp={handleOnKeyUp}
+        data-testid="inputSearch"
       />
       {list && <ResultsList query={query} />}
     </form>

@@ -50,6 +50,11 @@ export const BookDetails = styled.div`
 export const Title = styled.span`
   font-size: 14px;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  display: block;
 `;
 
 export const Authors = styled.div`
@@ -63,4 +68,8 @@ export const Rating = styled.div`
 
 export const EditInfo = styled.div`
   font-size: 12px;
+`;
+
+export const EmptySearch = styled.div`
+  padding: 1.5em;
 `;

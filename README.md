@@ -1,32 +1,91 @@
-# Quick Search - Front-End Engineer
+# Challenge - Quick Search
 
-# Part 1
+Evaluate general front end development skills and capabilities.
 
-Implement a quick search functionality as part of a larger app (i.e. not expecting this to be a standalone component) based on the following [**Figma wireframes**](https://www.figma.com/file/gQVK0BCychWR9itVUIFxoq/Practical-task?node-id=0%3A1).
+### Summary
 
-Design a modern UI/UX on top of that.
+- [Architecture](#architecture)
+- [Built With](#built-with)
+- [Installation](#installation)
+- [Comments](#comments)
+- [Author](#author)
 
-Utilise the following technologies/libraries:
+## Architecture
 
-- React
-- Redux
-- styled-components
+    .
+    ├── ...
+    ├── src
+    │   ├── assets          # icons, svgs.
+    │   ├── components      # Basic common components for building the project
+    │   ├── pages           # Project screens
+    │   │   └── Home
+    │   ├── store           # redux - api
+    │   │   └── library
+    │   └── App.js          # App Loader
+    └── ...
 
-Use the appropriate APIs listed here: [https://openlibrary.org/dev/docs/api](https://openlibrary.org/dev/docs/api)/
+## Built With
 
-- Update the results in real-time as user types
-- Be mindful of (perceived) performance
-- Link results to Amazon search
+- [React](https://reactjs.org/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Node.js 19.2.0](https://nodejs.org/en/)
+- [Open Library](https://openlibrary.org/dev/docs/api)
+- [Styled Components](https://styled-components.com/docs/api)
+- [Redux](https://redux.js.org/)
+- [React Loading Skeleton](https://github.com/dvtng/react-loading-skeleton)
+- [TypeScript](https://www.typescriptlang.org/)
 
-Share the completed work in a public git repository. Send link via email.
+## Installation
 
-<aside>
-👉 Remember that the challenge and the follow-up conversation is an opportunity for us to get to know you better. Feel free to include anything you think that would help with that.
+1 - First of all clone this repo to your local machine using:
 
-</aside>
+```shell
+git clone https://github.com/anaarezo/quick-search-challenge.git
+```
 
-# Part 2
+2 - Run npm to install the required packages
 
-Follow-up technical interview for you to explain your process and thinking behind any decisions.
+```shell
+npm i
+```
 
-Further QA.
+3 - Run dev enviroment, for this you can choose into:
+
+```shell
+npm run dev
+```
+
+or
+
+```shell
+npm start
+```
+
+4 - To run tests type:
+
+```shell
+npm test
+```
+
+# Points of Improvement
+
+- Create a route to Home screen.
+- I was focused on finalizing the application and functionality of the feature.
+- Should start the unit tests as TDD, but I ended up leaving it for the end. These made it more complex to resolve the failures.
+- I started the project by making the API request using React context, and only later did I remember that I should have used Redux. I ended up wasting time there.
+- Could make an accessible layout focused on WCAG if it was the project.
+- Isolate environment variables, such as API URL using env.
+- Isolate the rendering of the `<li>` component from the list into a new render component. Making the render component smaller, easier to test and maintain.
+- Avoiding nested ternaries, because is not a good practice to maintenance.
+
+## Author
+
+Ana Laura Arezo
+
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/anaarezo//)](https://www.linkedin.com/in/anaarezo/)
+[![Whatsapp Badge](https://img.shields.io/badge/-Whatsapp-4CA143?style=flat-square&labelColor=4CA143&logo=whatsapp&logoColor=white&link=https://api.whatsapp.com/send?phone=447423393211&text=Hello!)](https://api.whatsapp.com/send?phone=447423393211&text=Hello!)
+[![Gmail Badge](https://img.shields.io/badge/-Gmail-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:laura.arezo@gmail.com)](mailto:laura.arezo@gmail.com)
+
+💡 Feel free to contact me if you have difficulties running the project or to clarify informations.
+
+#### 😃 Thank you TaxScouts!
